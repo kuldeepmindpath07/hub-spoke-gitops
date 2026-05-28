@@ -20,7 +20,8 @@ spec:
         targetRevision: HEAD
         path: '{{path}}'
       destination:
-        name: platform-spoke-03
+        # Resolves automatically to the cluster context named inside your tenant custom resources
+        name: '{{metadata.labels.cluster_placement}}' 
         namespace: 'tenant-{{path.basename}}'
       syncPolicy:
         automated:
