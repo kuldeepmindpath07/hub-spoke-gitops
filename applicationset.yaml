@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tenant-fleet-orchestrator
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/kuldeepmindpath07/hub-spoke-gitops.git'
+        revision: HEAD
+        directories:
+          - path: tenants/*
+  template:
+    metadata:
+      name: 'tenant-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/kuldeepmindpath07/hub-spoke-gitops.git'
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        name: platform-spoke-03
+        namespace: 'tenant-{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
