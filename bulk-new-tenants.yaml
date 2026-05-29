@@ -1,0 +1,53 @@
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-507
+  namespace: default
+spec:
+  tenantId: "507"
+  domain: client-507.app.com
+---
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-508
+  namespace: default
+spec:
+  tenantId: "508"
+  domain: client-508.app.com
+---
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-509
+  namespace: default
+spec:
+  tenantId: "509"
+  domain: client-509.app.com
+---
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-510
+  namespace: default
+spec:
+  tenantId: "510"
+  domain: client-510.app.com
+---
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-511
+  namespace: default
+spec:
+  tenantId: "511"
+  domain: client-511.app.com
+---
+apiVersion: platform.saas.com/v1alpha1
+kind: Tenant
+metadata:
+  name: client-512
+  namespace: default
+spec:
+  tenantId: "512"
+  domain: client-512.app.com
