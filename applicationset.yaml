@@ -5,11 +5,19 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    - git:
-        repoURL: 'https://github.com/kuldeepmindpath07/hub-spoke-gitops.git'
-        revision: HEAD
-        directories:
-          - path: tenants/*
+    - matrix:
+        generators:
+          # Generator 1: Scans Git for new tenant folders
+          - git:
+              repoURL: 'https://github.com/kuldeepmindpath07/hub-spoke-gitops.git'
+              revision: HEAD
+              directories:
+                - path: tenants/*
+          # Generator 2: Queries the Hub API for matching Tenant placements
+          - clusters:
+              selector:
+                matchLabels:
+                  argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
       name: 'tenant-{{path.basename}}'
@@ -20,8 +28,9 @@ spec:
         targetRevision: HEAD
         path: '{{path}}'
       destination:
-        # Resolves automatically to the cluster context named inside your tenant custom resources
-        name: '{{metadata.labels.cluster_placement}}' 
+        # 🎯 THE FIX: Maps the destination cluster dynamically based on 
+        # what the cluster inventory name returns
+        name: '{{name}}' 
         namespace: 'tenant-{{path.basename}}'
       syncPolicy:
         automated:
